@@ -1,0 +1,29 @@
+{
+    "editor.formatOnPaste": true, // optional
+    "editor.formatOnSave": true, // optional
+    "editor.formatOnSaveMode": "file", // required to format on save
+    "files.autoSave": "onFocusChange", // optional but recommended
+    "vs-code-prettier-eslint.prettierLast": true, // set as "true" to run 'prettier' last not first
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+    "editor.formatOnType": false,
+    "cSpell.words": [
+      "airmaster",
+      "Authent",
+      "checkmark",
+      "Comand",
+      "Contactes",
+      "descr",
+      "dquestion",
+      "imgwrapper",
+      "jobopening",
+      "Licensy",
+      "portfoliomain",
+      "serviceprim",
+      "tailwindcss",
+      "textwrapper",
+      "trivago",
+      "valign",
+      "whoarewe",
+      "эксплутации"
+    ] // required
+  }

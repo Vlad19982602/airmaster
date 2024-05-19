@@ -2,6 +2,7 @@
   "name": "airmaster",
   "version": "1.2.3",
   "description": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "server": "nodemon index.js",
@@ -15,9 +16,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@prisma/client": "^5.14.0",
     "concurrently": "^8.2.2",
     "express": "^4.19.2",
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "pg": "^8.11.5"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "morgan": "^1.10.0"
   }
 }
