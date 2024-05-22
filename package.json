@@ -7,7 +7,9 @@
   "scripts": {
     "server": "nodemon index.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\" "
+    "dev": "concurrently \"npm run server\" \"npm run client\" ",
+    "format": "prettier --write .",
+    "format-check": "prettier --check ."
   },
   "repository": {
     "type": "git",
@@ -16,16 +18,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^5.14.0",
+    "@faker-js/faker": "^7.6.0",
+    "argon2": "^0.40.1",
     "concurrently": "^8.2.2",
     "express": "^4.19.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.1.0",
-    "pg": "^8.11.5"
+    "pg": "^8.11.5",
+    "prettier": "^3.2.5"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@prisma/client": "^5.14.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "colors": "^1.4.0",
     "dotenv": "^16.4.5",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "prisma": "^5.14.0"
   }
 }
