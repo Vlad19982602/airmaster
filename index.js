@@ -45,16 +45,16 @@ app.post('/api/calculate', async (req, res) => {
   try {
     const newEntry = await prisma.calculation.create({
       data: {
-        question1:JSON.stringify(question1),
+        question1: JSON.stringify(question1),
         question2,
-        question3:JSON.stringify(question3),
-        question4,
-        question5
+        question3: JSON.stringify(question3),
+        question4: JSON.stringify(question4),
+        question5: JSON.stringify(question5)
       }
     });
 
     // Выполните необходимые вычисления здесь
-    const result = `Ответы: ${JSON.stringify(question1)}, ${question2}, ${question3}, ${question4}, ${question5}`;
+    const result = `Ответы: ${JSON.stringify(question1)}, ${question2}, ${JSON.stringify(question3)}, ${JSON.stringify(question4)}, ${JSON.stringify(question5)}`;
 
     res.status(200).json(result);
   } catch (error) {
