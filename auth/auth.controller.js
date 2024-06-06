@@ -45,7 +45,7 @@ export const authUser = asyncHandler(async (req, res) => {
 // @access Public
 
 export const registerUser = asyncHandler(async (req, res) => {
-	const {email, password} = req.body 
+	const { username, email, password } = req.body
 
 	const isHaveUser = await prisma.client.findUnique({
 		where: {
@@ -57,9 +57,11 @@ export const registerUser = asyncHandler(async (req, res) => {
 		res.status(400)
     throw new Error('User already exists')
   }
-	
+	try {
+	// Создание пользователя в базе данных
 	const user = await prisma.client.create({
 		data: {
+			username,
       email,
       password: await hash(password),
 			name: faker.name.fullName(),
@@ -71,4 +73,8 @@ export const registerUser = asyncHandler(async (req, res) => {
 	const token = generateToken(user.id)
 
 	res.json({user, token})
+	res.status(201).json(newUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 })
