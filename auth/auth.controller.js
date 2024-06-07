@@ -61,7 +61,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 	// Создание пользователя в базе данных
 	const user = await prisma.client.create({
 		data: {
-			username,
+	  username,
       email,
       password: await hash(password),
 			name: faker.name.fullName(),
