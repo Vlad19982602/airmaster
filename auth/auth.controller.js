@@ -41,7 +41,7 @@ export const authUser = asyncHandler(async (req, res) => {
 })
 
 // @desc Register User
-// @route POST/user/Register
+// @route POST/user/register
 // @access Public
 
 export const registerUser = asyncHandler(async (req, res) => {
@@ -59,9 +59,9 @@ export const registerUser = asyncHandler(async (req, res) => {
   }
 	try {
 	// Создание пользователя в базе данных
-	const user = await prisma.client.create({
+	const newUser = await prisma.client.create({
 		data: {
-	  username,
+	  	username,
       email,
       password: await hash(password),
 			name: faker.name.fullName(),
@@ -70,11 +70,30 @@ export const registerUser = asyncHandler(async (req, res) => {
 		select: userFields
   })
 
-	const token = generateToken(user.id)
+	const token = generateToken(client.id)
 
-	res.json({user, token})
-	res.status(201).json(newUser);
+	res.json({client, token})
+
+	res.status(201).json(newUser)
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 })
+
+
+	// Маршрут для получения профиля пользователя.
+export const getProfile = async (req, res) => {
+
+  try {
+    const userId = req.user.userId;
+    const user = await prisma.client.findUnique({ where: { id: userId } });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
