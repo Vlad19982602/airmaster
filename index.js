@@ -1,11 +1,12 @@
 import 'colors'
-
+// modules and libraries
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import dotenv from 'dotenv';
-import cors from 'cors'; // Импортируем middleware CORS
+// prisma
 import prisma from './prisma.js'; // Импортируем только один раз
+// routes
 import authRoutes from './routes/auth.js';
 import clientsRoutes from './routes/clients.js';
 import projectsRoutes from './routes/projects.js';
@@ -13,6 +14,8 @@ import materialsRoutes from './routes/materials.js';
 import timeEntriesRoutes from './routes/timeEntries.js';
 import reportsRoutes from './routes/reports.js';
 import contractorsRoutes from './routes/contractors.js'; // Новый маршрут для подрядчиков
+// middleware routes
+import cors from 'cors'; // Импортируем middleware CORS
 import { notFound, errorHandler } from './middleware/error.middleware.js';
 
 dotenv.config();
