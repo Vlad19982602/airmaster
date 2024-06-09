@@ -7,13 +7,15 @@ import dotenv from 'dotenv';
 // prisma
 import prisma from './prisma.js'; // Импортируем только один раз
 // routes
-import authRoutes from './routes/auth.js';
-import clientsRoutes from './routes/clients.js';
-import projectsRoutes from './routes/projects.js';
-import materialsRoutes from './routes/materials.js';
-import timeEntriesRoutes from './routes/timeEntries.js';
-import reportsRoutes from './routes/reports.js';
-import contractorsRoutes from './routes/contractors.js'; // Новый маршрут для подрядчиков
+import authRoutes from './routes/auth.js'
+import clientsRoutes from './routes/clients.js'
+import projectsRoutes from './routes/projects.js'
+import materialsRoutes from './routes/materials.js'
+import timeEntriesRoutes from './routes/timeEntries.js'
+import reportsRoutes from './routes/reports.js'
+import contractorsRoutes from './routes/contractors.js' // Новый маршрут для подрядчиков
+import financialsRoutes from './routes/financials.js'
+import employeesRoutes from './routes/employees.js'
 // middleware routes
 import cors from 'cors'; // Импортируем middleware CORS
 import { notFound, errorHandler } from './middleware/error.middleware.js';
@@ -40,6 +42,8 @@ app.use('/api/materials', materialsRoutes);
 app.use('/api/timeEntries', timeEntriesRoutes);
 app.use('/api/reports', reportsRoutes);
 app.use('/api/contractors', contractorsRoutes); // Подключаем маршрут для подрядчиков
+app.use('/api/financials', financialsRoutes);
+app.use('/api/employees', employeesRoutes);
 
 // Добавляем маршрут для калькулятора
 app.post('/api/calculate', async (req, res) => {
@@ -79,10 +83,10 @@ app.listen(PORT, () => {
 // Основная функция для запуска сервера и обработки маршрутов
 async function main() {
   try {
-    // Подключение к базе данных (если необходимо)
+    // Подключение к базе данных
     await prisma.$connect();
 
-    // Сервер уже запущен выше в app.listen, здесь можно выполнить другие задачи
+    // Сервер уже запущен выше в app.listen
     console.log('Connected to database successfully');
   } catch (error) {
     console.error('Error connecting to database:', error);
