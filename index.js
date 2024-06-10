@@ -16,6 +16,7 @@ import reportsRoutes from './routes/reports.js'
 import contractorsRoutes from './routes/contractors.js' // Новый маршрут для подрядчиков
 import financialsRoutes from './routes/financials.js'
 import employeesRoutes from './routes/employees.js'
+import equipmentRoutes from './routes/equipment.js'
 // middleware routes
 import cors from 'cors'; // Импортируем middleware CORS
 import { notFound, errorHandler } from './middleware/error.middleware.js';
@@ -44,6 +45,7 @@ app.use('/api/reports', reportsRoutes);
 app.use('/api/contractors', contractorsRoutes); // Подключаем маршрут для подрядчиков
 app.use('/api/financials', financialsRoutes);
 app.use('/api/employees', employeesRoutes);
+app.use('/api/equipment', equipmentRoutes);
 
 // Добавляем маршрут для калькулятора
 app.post('/api/calculate', async (req, res) => {

@@ -1,25 +1,25 @@
 import express from 'express';
-import bcrypt from 'bcrypt';
-import prisma from '../prisma';
+import prisma from '../prisma.js';
 
 const router = express.Router();
 
-router.post('/register', async (req, res) => {
-  const { username, email, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
+router.get('/', async (req, res) => {
+  try {
+    const users = await prisma.user.findMany();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
+router.post('/', async (req, res) => {
+  const { username, email, password } = req.body;
   try {
     const newUser = await prisma.user.create({
-      data: {
-        username,
-        email,
-        password: hashedPassword,
-      },
+      data: { username, email, password }
     });
-
-    res.status(201).json(newUser);
+    res.json(newUser);
   } catch (error) {
-    console.error('Error registering new user:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
