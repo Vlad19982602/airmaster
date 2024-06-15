@@ -12,6 +12,20 @@ export const registerUser = asyncHandler(async (req, res) => {
   console.log('Received registration request:', { username, email, password });
 
   try {
+    // Проверка наличия пользователя с таким же username или email
+    const userExists = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { username },
+          { email }
+        ]
+      }
+    });
+
+    if (userExists) {
+      return res.status(400).json({ error: 'Пользователь с таким username или email уже существует' });
+    }
+
     // Хеширование пароля с использованием Argon2
     const hashedPassword = await hash(password);
     console.log('Password hashed successfully');
@@ -38,7 +52,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 });
 
 // Контроллер для входа пользователя
-export const authUser = asyncHandler(async (req, res) => {
+export const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   try {

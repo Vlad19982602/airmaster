@@ -8,15 +8,18 @@ import dotenv from 'dotenv';
 import prisma from './prisma.js'; // Импортируем только один раз
 // routes
 import authRoutes from './routes/auth.js'
+import registerRoutes from './routes/register.js'
 import clientsRoutes from './routes/clients.js'
 import projectsRoutes from './routes/projects.js'
 import materialsRoutes from './routes/materials.js'
 import timeEntriesRoutes from './routes/timeEntries.js'
-import reportsRoutes from './routes/reports.js'
 import contractorsRoutes from './routes/contractors.js' // Новый маршрут для подрядчиков
 import financialsRoutes from './routes/financials.js'
 import employeesRoutes from './routes/employees.js'
 import equipmentRoutes from './routes/equipment.js'
+import reportsRoutes from './routes/reports.js'; // Импортируем маршруты для отчетов
+
+
 // middleware routes
 import cors from 'cors'; // Импортируем middleware CORS
 import { notFound, errorHandler } from './middleware/error.middleware.js';
@@ -36,16 +39,18 @@ app.use(express.json());
 app.use(bodyParser.json());
 
 // Routes
-app.use('/api/auth', authRoutes);
+app.use('/api/login', authRoutes);
+app.use('/api/register', registerRoutes);
 app.use('/api/clients', clientsRoutes);
 app.use('/api/projects', projectsRoutes);
 app.use('/api/materials', materialsRoutes);
 app.use('/api/timeEntries', timeEntriesRoutes);
-app.use('/api/reports', reportsRoutes);
 app.use('/api/contractors', contractorsRoutes); // Подключаем маршрут для подрядчиков
 app.use('/api/financials', financialsRoutes);
 app.use('/api/employees', employeesRoutes);
 app.use('/api/equipment', equipmentRoutes);
+app.use('/api/reports', reportsRoutes); // Подключаем маршруты для отчетов
+
 
 // Добавляем маршрут для калькулятора
 app.post('/api/calculate', async (req, res) => {
@@ -63,7 +68,13 @@ app.post('/api/calculate', async (req, res) => {
     });
 
     // Выполните необходимые вычисления здесь
-    const result = `Ответы: ${JSON.stringify(question1)}, ${question2}, ${JSON.stringify(question3)}, ${JSON.stringify(question4)}, ${JSON.stringify(question5)}`;
+    newEntry = {
+      question1: question1 || [],
+      question2: question2 || '',
+      question3: question3 || [],
+      question4: question4 || [],
+      question5: question5 || { method: '', contact: '' }
+    };
 
     res.status(200).json(result);
   } catch (error) {
