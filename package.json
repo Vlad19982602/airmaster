@@ -9,7 +9,10 @@
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\" ",
     "format": "prettier --write .",
-    "format-check": "prettier --check ."
+    "format-check": "prettier --check .",
+    "build:client": "/client && npm install && npm run build",
+    "build:server": "/ && npm install && npm run build",
+    "build": "npm run build:client && npm run build:server"
   },
   "repository": {
     "type": "git",
