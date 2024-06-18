@@ -1,6 +1,6 @@
 import 'colors'
 // modules and libraries
-import path from 'path';
+// import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import express from 'express';
@@ -64,7 +64,7 @@ app.post('/api/calculate', async (req, res) => {
   const { question1, question2, question3, question4, question5 } = req.body;
   
   try {
-    const newEntry = await prisma.calculation.create({
+    let newEntry = await prisma.calculation.create({
       data: {
         question1: JSON.stringify(question1),
         question2,
@@ -83,7 +83,7 @@ app.post('/api/calculate', async (req, res) => {
       question5: question5 || { method: '', contact: '' }
     };
 
-    res.status(200).json(result);
+    res.status(200).json({ newEntry });
   } catch (error) {
     console.error('Error calculating:', error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -95,12 +95,12 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Настройка статической папки для клиентской части
-app.use(express.static(path.join(__dirname, '../client/dist')));
+// app.use(express.static(path.join(__dirname, '../client/build')));
 
 // Обработка всех остальных маршрутов и возврат index.html
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
-});
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+// });
 
 const PORT = process.env.PORT || 5000;
 
