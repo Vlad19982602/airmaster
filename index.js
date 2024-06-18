@@ -1,5 +1,8 @@
 import 'colors'
 // modules and libraries
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import express from 'express';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
@@ -37,6 +40,10 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json());
 app.use(bodyParser.json());
+
+// Определение __filename и __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Routes
 app.use('/api/login', authRoutes);
