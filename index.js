@@ -87,6 +87,14 @@ app.post('/api/calculate', async (req, res) => {
 app.use(notFound);
 app.use(errorHandler);
 
+// Настройка статической папки для клиентской части
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Обработка всех остальных маршрутов и возврат index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../client/dist', 'index.html'));
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
