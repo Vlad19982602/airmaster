@@ -62,7 +62,7 @@ app.use('/api/reports', reportsRoutes); // Подключаем маршруты
 // Добавляем маршрут для калькулятора
 app.post('/api/calculate', async (req, res) => {
   const { question1, question2, question3, question4, question5 } = req.body;
-  
+
   try {
     let newEntry = await prisma.calculation.create({
       data: {
@@ -83,7 +83,7 @@ app.post('/api/calculate', async (req, res) => {
       question5: question5 || { method: '', contact: '' }
     };
 
-    res.status(200).json({ newEntry });
+    res.status(200).json(newEntry); // Возвращаем объект newEntry напрямую
   } catch (error) {
     console.error('Error calculating:', error);
     res.status(500).json({ error: 'Internal Server Error' });
